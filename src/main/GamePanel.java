@@ -49,37 +49,79 @@ public class GamePanel extends JPanel implements Runnable{
 		gameThread.start();
 	}
 
+//	@Override
+//	public void run() {
+//		
+//		//nine zeros (nanoseconds) = 1 second
+//		double drawInteval = 1000000000 / FPS;
+//		double nextDrawTime = System.nanoTime() + drawInteval;
+//		
+//		while (gameThread != null) {
+//			//long currentTime = System.nanoTime();
+//			//System.out.println("Current time: "+currentTime);
+//
+//			update();
+//
+//			repaint();			
+//			
+//			try {
+//				double remainingTime=nextDrawTime - System.nanoTime();
+//				remainingTime=remainingTime/1000000;
+//				System.out.println(remainingTime);
+//				if (remainingTime < 0)
+//				{
+//					remainingTime=0;	
+//				}
+//				Thread.sleep((long) remainingTime);
+//				
+//				nextDrawTime+= drawInteval;
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//	}
+//	
+	
 	@Override
 	public void run() {
 		
 		//nine zeros (nanoseconds) = 1 second
 		double drawInteval = 1000000000 / FPS;
-		double nextDrawTime = System.nanoTime() + drawInteval;
+		double delta = 0;
+		long lastTime = System.nanoTime();
+		long currentTime;
+		long timer=0;
+		int drawCount =0;
 		
 		while (gameThread != null) {
-			//long currentTime = System.nanoTime();
-			//System.out.println("Current time: "+currentTime);
-
-			update();
-
-			repaint();			
+			currentTime = System.nanoTime();
 			
-			try {
-				double remainingTime=nextDrawTime - System.nanoTime();
-				remainingTime=remainingTime/1000000;
-				System.out.println(remainingTime);
-				if (remainingTime < 0)
-				{
-					remainingTime=0;	
-				}
-				Thread.sleep((long) remainingTime);
+			delta += (currentTime - lastTime)/drawInteval;
+			timer += (currentTime - lastTime);
+			
+			lastTime = currentTime;
+	
+			if (delta>=1)
+			{
+				update();
 				
-				nextDrawTime+= drawInteval;
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				repaint();
+				
+				delta--;
+				
+				drawCount++;
 			}
+			
+			if (timer  > 1000000000) {
+				System.out.println("FPS:"+drawCount);
+				drawCount = 0;
+				timer = 0;
+			}
+
 		}
+		
+		
 	}
 	
 	public void update() {
