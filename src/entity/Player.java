@@ -22,8 +22,9 @@ public class Player extends Entity {
 		this.gp = gp;
 		this.keyH = keyH;
 		
-		screenX = gp.screenWidth/2;
-		screenY = gp.screenHeigth/2;
+		//Calc. for draw player on the center of the screen
+		screenX = gp.screenWidth/2 - (gp.tileSize/2);
+		screenY = gp.screenHeigth/2- (gp.tileSize/2);
 		
 		setDefaultValues();
 		getPlayerImage();
