@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Entity {
@@ -13,4 +14,8 @@ public class Entity {
 	
 	public int spriteCounter = 0;
 	public int spriteNum = 1;
+	
+	//solid area are the part of the sprite that is solid to use in collisions
+	public Rectangle solidArea;
+	public boolean collisionOn=false;
 }

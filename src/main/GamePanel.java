@@ -36,6 +36,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	KeyHandler keyH = new KeyHandler();	
 	Thread gameThread;
+	public CollisionChecker collisionChecker = new CollisionChecker(this);
 	public Player player = new Player(this, keyH);
 	TileManager tileM = new TileManager(this);
 	
@@ -53,40 +54,6 @@ public class GamePanel extends JPanel implements Runnable{
 		gameThread = new Thread(this);
 		gameThread.start();
 	}
-
-//	@Override
-//	public void run() {
-//		
-//		//nine zeros (nanoseconds) = 1 second
-//		double drawInteval = 1000000000 / FPS;
-//		double nextDrawTime = System.nanoTime() + drawInteval;
-//		
-//		while (gameThread != null) {
-//			//long currentTime = System.nanoTime();
-//			//System.out.println("Current time: "+currentTime);
-//
-//			update();
-//
-//			repaint();			
-//			
-//			try {
-//				double remainingTime=nextDrawTime - System.nanoTime();
-//				remainingTime=remainingTime/1000000;
-//				System.out.println(remainingTime);
-//				if (remainingTime < 0)
-//				{
-//					remainingTime=0;	
-//				}
-//				Thread.sleep((long) remainingTime);
-//				
-//				nextDrawTime+= drawInteval;
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//	}
-//	
 	
 	@Override
 	public void run() {
